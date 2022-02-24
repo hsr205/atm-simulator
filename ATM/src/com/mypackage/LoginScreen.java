@@ -1,27 +1,21 @@
 package com.mypackage;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class LoginScreen {
 
-    private static Customer customer1 = new Customer("Henry", 123456789, 123456789);
+    private static Customer customer1 = new Customer("Henry", 123, 123, 0.0, 0.0);
     private Scanner scanner = new Scanner(System.in);
-
+    private List<Integer> customer = CustomerDatabase.customerDatabase().stream().map(Customer::getAccountNumber).toList();
     private int totalAttemptsAccountNumber = 3;
     private int totalAttemptsPinNumber = 3;
-
-//    public void getLogin() {
-//        if (accountNumberLogin()) {
-//            pinNumberLogin();
-//        }
-//    }
 
     public void getLogin() {
         if (accountNumberLogin() && pinNumberLogin()) {
             getAccountTypes();
         }
     }
-
     private boolean accountNumberLogin() {
         System.out.println("Welcome to the ATM Project!");
         System.out.print("Enter Your Customer Number: ");
