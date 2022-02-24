@@ -63,8 +63,8 @@ public class LoginScreen {
         System.out.print("Choice: ");
         int accountType = scanner.nextInt();
         switch (accountType) {
-            case 1 -> new AccountTypes().checkingAccount();
-            case 2 -> new AccountTypes().savingsAccount();
+            case 1 -> new Customer().checkingAccount();
+            case 2 -> new Customer().savingsAccount();
             case 3 -> System.out.println("Goodbye");
         }
         return true;

@@ -9,11 +9,6 @@ public class Main {
 
         LoginScreen loginScreen = new LoginScreen();
         loginScreen.getLogin();
-//        List<Integer> customer = CustomerDatabase.customerDatabase().stream().map(Customer::getAccountNumber).toList();
-//
-//        for (Integer customer1: customer) {
-//            System.out.println(customer1);
-//        }
-//
+
     }
 }
