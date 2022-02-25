@@ -1,8 +1,4 @@
-package com.mypackage;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+package com.mypackage.dev;
 
 public class Customer {
 

@@ -1,7 +1,4 @@
-package com.mypackage;
-
-import java.util.List;
-import java.util.stream.Stream;
+package com.mypackage.main;
 
 public class Main {
 
