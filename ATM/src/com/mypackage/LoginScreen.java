@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class LoginScreen {
 
-    private Customer customer1 = new Customer("Henry", 123, 123, 100.0, 100.0);
+    private static Customer customer1 = new Customer("Henry", 123, 123, 100.0, 100.0);
     private Scanner scanner = new Scanner(System.in);
 //    private List<Integer> customer = CustomerDatabase.customerDatabase().stream().map(Customer::getAccountNumber).toList();
     private int totalAttemptsAccountNumber = 3;
@@ -16,6 +16,7 @@ public class LoginScreen {
             getAccountTypes();
         }
     }
+
     private boolean accountNumberLogin() {
         System.out.println("Welcome to the ATM Project!");
         System.out.print("Enter Your Customer Number: ");
@@ -88,7 +89,7 @@ public class LoginScreen {
     }
 
     private double checkingAccountBalance() {
-        if( customer1.getCheckingAccountBalance() == 0.0 ) {
+        if( customer1.getCheckingAccountBalance() >= 0.0) {
             System.out.println("Checking Account Balance: $" + customer1.getCheckingAccountBalance() + "\n");
             new LoginScreen().getAccountTypes();
         }
@@ -105,7 +106,7 @@ public class LoginScreen {
     }
 
     private double checkingAccountWithdraw() {
-        System.out.println("Checking Account Balance: " + customer1.getCheckingAccountBalance());
+        System.out.println("Checking Account Balance: $" + customer1.getCheckingAccountBalance());
         System.out.print("Amount you want to withdraw from Checking Account: ");
         double amountWithdrawn = scanner.nextDouble();
         if (amountWithdrawn >= customer1.getCheckingAccountBalance()) {
@@ -113,13 +114,14 @@ public class LoginScreen {
             return customer1.getCheckingAccountBalance();
         }
 
+        System.out.println("Cash remaining in Checking Account: $" + (customer1.getCheckingAccountBalance() - amountWithdrawn) + "\n");
+        new LoginScreen().getAccountTypes();
         return customer1.getCheckingAccountBalance() - amountWithdrawn;
     }
 
 
-
     public boolean savingsAccount() {
-        System.out.println("Checking Account:");
+        System.out.println("Savings Account:");
         System.out.println("Type 1 - View Balance");
         System.out.println("Type 2 - Withdraw Funds");
         System.out.println("Type 3 - Deposit Funds");
@@ -136,7 +138,7 @@ public class LoginScreen {
     }
 
     private double savingsAccountBalance() {
-        if (customer1.getSavingsAccountBalance() == 0.0) {
+        if (customer1.getSavingsAccountBalance() >= 0.0) {
             System.out.println("Savings Account Balance: $" + customer1.getSavingsAccountBalance() + "\n");
             new LoginScreen().getAccountTypes();
         }
@@ -161,6 +163,8 @@ public class LoginScreen {
             return customer1.getSavingsAccountBalance() - amountWithdrawn;
         }
 
+        System.out.println("Cash remaining in Savings Account: $" + (customer1.getSavingsAccountBalance() - amountWithdrawn) + "\n");
+        new LoginScreen().getAccountTypes();
         return customer1.getSavingsAccountBalance() - amountWithdrawn;
     }
 }
