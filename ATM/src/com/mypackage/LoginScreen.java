@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class LoginScreen {
 
-    private static Customer customer1 = new Customer("Henry", 123, 123, 0.0, 0.0);
+    private Customer customer1 = new Customer("Henry", 123, 123, 100.0, 100.0);
     private Scanner scanner = new Scanner(System.in);
-    private List<Integer> customer = CustomerDatabase.customerDatabase().stream().map(Customer::getAccountNumber).toList();
+//    private List<Integer> customer = CustomerDatabase.customerDatabase().stream().map(Customer::getAccountNumber).toList();
     private int totalAttemptsAccountNumber = 3;
     private int totalAttemptsPinNumber = 3;
 
@@ -63,11 +63,105 @@ public class LoginScreen {
         System.out.print("Choice: ");
         int accountType = scanner.nextInt();
         switch (accountType) {
-            case 1 -> new Customer().checkingAccount();
-            case 2 -> new Customer().savingsAccount();
+            case 1 -> checkingAccount();
+            case 2 -> savingsAccount();
             case 3 -> System.out.println("Goodbye");
         }
         return true;
+    }
+
+    public boolean checkingAccount() {
+        System.out.println("Checking Account:");
+        System.out.println("Type 1 - View Balance");
+        System.out.println("Type 2 - Withdraw Funds");
+        System.out.println("Type 3 - Deposit Funds");
+        System.out.println("Type 4 - Exit");
+        System.out.print("Choice: ");
+        int checkingAccountType = scanner.nextInt();
+        switch (checkingAccountType) {
+            case 1 -> checkingAccountBalance();
+            case 2 -> checkingAccountWithdraw();
+            case 3 -> checkingAccountDeposit();
+            case 4 -> System.out.println("Exit");
+        }
+        return true;
+    }
+
+    private double checkingAccountBalance() {
+        if( customer1.getCheckingAccountBalance() == 0.0 ) {
+            System.out.println("Checking Account Balance: $" + customer1.getCheckingAccountBalance() + "\n");
+            new LoginScreen().getAccountTypes();
+        }
+        return customer1.getCheckingAccountBalance();
+    }
+
+    private double checkingAccountDeposit() {
+        System.out.print("Amount you want to deposit into Checking Account: ");
+        double amountDeposited = scanner.nextDouble();
+        double newAccountBalance = customer1.getCheckingAccountBalance() + amountDeposited;
+        System.out.println("New Checking Account balance: $" + newAccountBalance + "\n");
+        new LoginScreen().getAccountTypes();
+        return newAccountBalance;
+    }
+
+    private double checkingAccountWithdraw() {
+        System.out.println("Checking Account Balance: " + customer1.getCheckingAccountBalance());
+        System.out.print("Amount you want to withdraw from Checking Account: ");
+        double amountWithdrawn = scanner.nextDouble();
+        if (amountWithdrawn >= customer1.getCheckingAccountBalance()) {
+            System.out.println("Cannot withdraw $" + amountWithdrawn);
+            return customer1.getCheckingAccountBalance();
+        }
+
+        return customer1.getCheckingAccountBalance() - amountWithdrawn;
+    }
+
+
+
+    public boolean savingsAccount() {
+        System.out.println("Checking Account:");
+        System.out.println("Type 1 - View Balance");
+        System.out.println("Type 2 - Withdraw Funds");
+        System.out.println("Type 3 - Deposit Funds");
+        System.out.println("Type 4 - Exit");
+        System.out.print("Choice: ");
+        int checkingAccountType = scanner.nextInt();
+        switch (checkingAccountType) {
+            case 1 -> savingsAccountBalance();
+            case 2 -> savingsAccountWithdraw();
+            case 3 -> savingsAccountDeposit();
+            case 4 -> System.out.println("Exit");
+        }
+        return true;
+    }
+
+    private double savingsAccountBalance() {
+        if (customer1.getSavingsAccountBalance() == 0.0) {
+            System.out.println("Savings Account Balance: $" + customer1.getSavingsAccountBalance() + "\n");
+            new LoginScreen().getAccountTypes();
+        }
+        return customer1.getSavingsAccountBalance();
+    }
+
+    private double savingsAccountDeposit() {
+        System.out.print("Amount you want to deposit into Savings Account: ");
+        double amountDeposited = scanner.nextDouble();
+        double newAccountBalance = customer1.getSavingsAccountBalance() + amountDeposited;
+        System.out.println("New Savings Account balance: $" + newAccountBalance + "\n");
+        new LoginScreen().getAccountTypes();
+        return newAccountBalance;
+    }
+
+    private double savingsAccountWithdraw() {
+        System.out.println("Savings Account Balance: " + customer1.getSavingsAccountBalance());
+        System.out.print("Amount you want to withdraw from Savings Account: ");
+        double amountWithdrawn = scanner.nextDouble();
+        if (amountWithdrawn >= customer1.getSavingsAccountBalance()) {
+            System.out.println("Cannot withdraw $" + amountWithdrawn);
+            return customer1.getSavingsAccountBalance() - amountWithdrawn;
+        }
+
+        return customer1.getSavingsAccountBalance() - amountWithdrawn;
     }
 }
 
